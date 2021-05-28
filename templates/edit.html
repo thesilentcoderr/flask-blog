@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% block content %}    
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url(' {{ url_for('static',filename='assets/img/home-bg.jpg') }} ')">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 mx-auto">
+                        <div class="site-heading">
+                            <h1>Admin Panel</h1>
+                            <span class="subheading">Admin Settings for Managing Posts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category,message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">      
+                        {{ message }}
+                        <button type="button" class="close" data-dismissible="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %} 
+
+        
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h1>Basic Actions</h1>
+                    <a href="/login"><button class="btn btn-primary">Dashboard Home</button></a>
+                    <a href="/logout"><button class="btn btn-primary">Logout</button></a>
+                    </hr>
+                
+                <h1>Add/Edit Posts</h1>    
+                    
+                <form id="edit-form" name="editdb" action="/edit/{{id}}" method="POST" >
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Title</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{post[1]}}" required autofocus />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Tagline</label>
+                            <input type="text" class="form-control" id="tline" name='tline' placeholder="Tagline" value="{{post[2]}}" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Content</label>
+                            <textarea rows="5" class="form-control" id="content" name='content'  placeholder="Content" required >{{post[3]}}</textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Image File</label>
+                            <input type="text" class="form-control" id="img_file"  name='img_file' placeholder="Image File" value="{{post[-1]}}" required />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="success"></div>
+                    <button class="btn btn-primary" id="sendMessageButton" type="submit">Submit</button>
+                </form>
+                   
+                </div>
+            </div>
+        </div>
+        
+{% endblock %}        

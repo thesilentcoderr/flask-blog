@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}    
+        <!-- Page Header-->
+        <header class="masthead mb-0" style="background-image: url(' {{ url_for('static',filename='assets/img/home-bg.jpg') }} ')">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 mx-auto">
+                        <div class="site-heading">
+                            <h1>Share Here</h1>
+                            <span class="subheading">Share your knowledge with Share Point</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category,message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">      
+          {{ message }}
+          <button type="button" class="close" data-dismissible="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+        {% if posts!=None %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    
+                    <!--Dynamic fetching of post-->
+                    {% for post in posts %}
+                    <div class="post-preview">
+                        <a href="/post/{{post[0]}}">
+                            <h2 class="post-title">{{post[1]}} </h2>
+                            <h3 class="post-subtitle">{{post[2]}}</h3>
+                        </a>
+                        <p>{{post[3][0:50]}}.... </p>
+                        <p class="post-meta">
+                            Posted by
+                            <a href="#!">{{post[-3]}}</a>
+                            on {{post[-2]}}
+                        </p>
+                    </div>
+                    <hr />
+                    {% endfor %}
+        {% endif %}
+
+                    <!-- Pager-->
+                    <div class="clearfix">
+                        <a class="btn btn-primary float-left" href="{{prev}}">&larr; Older Posts</a>
+                        <a class="btn btn-primary float-right" href="{{next}}">Newer Posts &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+{% endblock %}        
