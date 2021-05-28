@@ -1,4 +1,3 @@
-from weakref import ProxyTypes
 from flask import Flask, render_template,request,json,url_for,session,flash
 from flask_mysqldb import MySQL
 from os import name, urandom
